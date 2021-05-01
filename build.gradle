@@ -1,0 +1,60 @@
+buildscript {
+    repositories {
+        // mavenLocal()
+        maven { url "https://artifactory.abc30ops.com/artifactory/repo" }
+    }
+
+    dependencies {
+        classpath 'net.ltgt.gradle:gradle-apt-plugin:0.18'
+    }
+}
+
+plugins {
+    id 'org.sonarqube' version '2.7'
+    id 'net.ltgt.apt' version '0.10'
+}
+
+apply plugin: 'java-library'
+apply plugin: 'maven'
+apply plugin: 'groovy'
+
+ext {
+    retrofitVersion = '2.5.0'
+    jacksonVersion = '2.9.5'
+    logbackVersion = '1.2.3'
+}
+
+group = projectGroup
+version = projectVersion
+sourceCompatibility = projectSourceCompatibility
+
+repositories {
+    maven { url "https://artifactory.abc30ops.com/artifactory/repo" }
+}
+
+dependencies {
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.8'
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.8'
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+    implementation group: 'ch.qos.logback', name: 'logback-classic', version: logbackVersion
+    implementation group: 'ch.qos.logback', name: 'logback-core', version: logbackVersion
+
+    implementation group: 'org.apache.commons', name: 'commons-configuration2', version: '2.0'
+
+    api group: 'com.squareup.retrofit2', name: 'retrofit', version: retrofitVersion
+    api group: 'com.squareup.retrofit2', name: 'adapter-rxjava2', version: retrofitVersion
+    api group: 'com.squareup.retrofit2', name: 'converter-jackson', version: retrofitVersion
+    api group: 'com.squareup.retrofit2', name: 'converter-java8', version: retrofitVersion
+
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: jacksonVersion
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: jacksonVersion
+    implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jdk8', version: jacksonVersion
+    implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: jacksonVersion
+
+    api group: 'com.squareup.retrofit2', name: 'converter-gson', version: retrofitVersion
+    implementation group: 'org.json', name: 'json', version: '20180130'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: jacksonVersion
+    implementation group: 'commons-beanutils', name: 'commons-beanutils', version: '1.9.3'
+
+
+}
